@@ -1,6 +1,7 @@
-import { elem, p, h1, div, b, i, a, u, h3 } from './elements'
+import Elements, { elem } from './elements'
 import React from 'react'
 import delay from 'delay'
+const { p, h1, div, b, i, a, u, h3, circle, svg } = Elements
 
 async function* elementGenerator() {
   yield p("getting started")
@@ -30,8 +31,18 @@ class Progress extends React.Component {
 const ProgressKeeper = (props = {})=>
   elem(Progress, props)
 
+const Logo = () =>
+  svg(
+    circle({
+      cx: "50",
+      cy: "50",
+       r: "50",
+     })
+   )
+
 const App = ({ url }) =>
   div(
+    Logo(),
     h1("Demonstration of generational component"),
     h3("As well as functional element bindings"),
     p(
