@@ -5,7 +5,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-  React.createElement(App, {url: 'http://github.com'}),
+  React.createElement(App, {url: 'https://github.com/bethwesa/react-elements'}),
   document.getElementById('root'),
 )
 
