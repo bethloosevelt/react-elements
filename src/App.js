@@ -19,6 +19,8 @@ class Progress extends React.Component {
     this.gen = elementGenerator()
     this.state = { next: null }
     this.render = () => this.state.next
+  }
+  componentDidMount() {
     this.run()
   }
   async run() {
