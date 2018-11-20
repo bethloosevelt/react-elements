@@ -1,28 +1,44 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { elem, p, h1, div, b, i, a, u, h3 } from './elements'
+import React from 'react'
+import delay from 'delay'
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
+async function* elementGenerator() {
+  yield p("getting started")
+  await delay(5000)
+  yield i("continuing work")
+  await delay(3000)
+  yield p("about done")
+  await delay(500)
+  yield b("all done")
+}
+
+class Progress extends React.Component {
+  constructor() {
+    super()
+    this.gen = elementGenerator()
+    this.state = { next: null }
+    this.render = () => this.state.next
+    this.run()
+  }
+  async run() {
+    for await(const next of this.gen) {
+      this.setState({ next })
+    }
   }
 }
+
+const ProgressKeeper = (props = {})=>
+  elem(Progress, props)
+
+const App = ({ url }) =>
+  div(
+    h1("Demonstration of generational component"),
+    h3("As well as functional element bindings"),
+    p(
+      "check it out ",
+      a({href: url}, u("here")),
+    ),
+    ProgressKeeper(),
+  )
 
 export default App;
